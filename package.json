@@ -1,0 +1,11 @@
+{
+  "name": "@vospel/matrix-client",
+  "private": true,
+  "packageManager": "pnpm@8.6.3",
+  "version": "1.0.0",
+  "devDependencies": {
+    "@types/node": "^20.3.2",
+    "turbo": "^1.10.6",
+    "typescript": "^5.1.6"
+  }
+}

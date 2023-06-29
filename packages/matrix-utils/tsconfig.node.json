@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "composite": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "skipLibCheck": true,
+    "strict": true,
+    "types": [
+      "vitest",
+      "vitest/globals"
+    ]
+  },
+  "include": [
+    "test"
+  ],
+  "exclude": [
+    "node_modules",
+    "lib"
+  ],
+}
