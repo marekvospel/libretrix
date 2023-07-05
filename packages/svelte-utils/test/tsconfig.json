@@ -1,0 +1,18 @@
+{
+  "extends": "@vospel/tsconfig",
+  "compilerOptions": {
+    "outDir": "lib",
+    "types": [
+      "vitest",
+      "vitest/globals"
+    ]
+  },
+  "include": [
+    "../src",
+    "../test"
+  ],
+  "exclude": [
+    "../node_modules",
+    "../lib"
+  ],
+}

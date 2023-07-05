@@ -1,16 +1,20 @@
 {
-  "name": "@vospel/matrix-utils",
+  "name": "@vospel/svelte-utils",
   "version": "1.0.0",
-  "type": "module",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
     "build": "tsc",
     "test": "vitest run"
   },
+  "peerDependencies": {
+    "svelte": "~3.0 || ~4.0"
+  },
   "devDependencies": {
     "@vitest/coverage-v8": "^0.32.2",
     "@vospel/tsconfig": "workspace:^",
+    "jsdom": "^22.1.0",
+    "svelte": "^4.0.0",
     "vitest": "^0.32.2"
   }
 }

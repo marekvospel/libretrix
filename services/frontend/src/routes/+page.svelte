@@ -1,7 +1,12 @@
 <script lang="ts">
   import { UserId, wellKnownLookup, InvalidUserIdError } from '@vospel/matrix-utils'
   import { createClient } from 'matrix-js-sdk'
+  import { onMount } from 'svelte';
+  import { goto } from '$app/navigation';
+  import { get } from 'svelte/store';
 
+  import { authStore } from '../stores/auth.store'
+  
   let servername: string = 'matrix.org'
 
   let username = ''
@@ -45,11 +50,23 @@
         initial_device_display_name: 'My custom matrix client'
       })
 
-      console.log(result?.well_known?.['m.homeserver']?.base_url, client.baseUrl)
+      const baseUrl = result?.well_known?.['m.homeserver']?.base_url ?? client.baseUrl
 
-      console.log(result)
+      authStore.set({
+        accessToken: result.access_token,
+        deviceId: result.device_id,
+        userId: result.user_id,
+        baseUrl,
+      })
+      
+      await goto('/app')
     } catch {}
   }
+
+  onMount(async () => {
+    if (get(authStore).accessToken)
+      await goto('/app')
+  })
 </script>
 
 <form on:submit|preventDefault={login} class="flex flex-col gap-2 max-w-100 m-auto py-8">
