@@ -1,13 +1,7 @@
 {
+  "extends": "@vospel/tsconfig",
   "compilerOptions": {
-    "module": "esnext",
-    "target": "esnext",
-    "moduleResolution": "node",
-    "skipLibCheck": true,
-    "strict": true,
-    "outDir": "lib",
-    "rootDir": "src",
-    "declaration": true,
+    "outDir": "lib"
   },
   "include": [
     "src"
@@ -16,9 +10,4 @@
     "node_modules",
     "lib"
   ],
-  "references": [
-    {
-      "path": "./tsconfig.node.json"
-    }
-  ]
 }

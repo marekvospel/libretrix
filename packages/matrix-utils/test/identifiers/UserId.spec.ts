@@ -1,4 +1,4 @@
-import { UserId } from '../../lib'
+import { UserId } from '../../src'
 
 describe('UserId', () => {
 
