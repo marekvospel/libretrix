@@ -6,7 +6,7 @@ import { get } from "svelte/store";
 
 export const load: LayoutLoad = () => {
 
-  if (browser && !get(authStore).accessToken) {
+  if (browser && (!get(authStore).accessToken || !get(authStore).baseUrl)) {
     throw redirect(302, '/')
   }
 }
