@@ -22,7 +22,10 @@
       deviceId: authData.deviceId,
       userId: authData.userId,
       store,
-      cryptoStore: new IndexedDBCryptoStore(window.indexedDB, 'matrix-crypto-store')
+      cryptoStore: new IndexedDBCryptoStore(window.indexedDB, 'matrix-crypto-store'),
+      verificationMethods: [
+        'm.sas.v1'
+      ]
     })
     
     await client.startClient()

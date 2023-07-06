@@ -47,7 +47,7 @@
           user,
         },
         password,
-        initial_device_display_name: 'My custom matrix client'
+        initial_device_display_name: 'Libretrix'
       })
 
       const baseUrl = result?.well_known?.['m.homeserver']?.base_url ?? client.baseUrl
