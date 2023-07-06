@@ -16,9 +16,18 @@ export interface CustomStorageEvent {
   newValue: StorageEvent['newValue'],
 }
 
-export function useStorage<T>(key: string, defaults: undefined, storage?: CustomStorage): Writable<T>
-export function useStorage<T>(key: string, defaults: T, storage?: CustomStorage): Writable<T>
-
+/**
+ * This function is a store generator, which listens and sends store events making it possible to sync
+ * localStorage, sessionStorage and other StorageLike objects across both this and multiple tabs.
+ * 
+ * The data is also automatically serialized and deserialized based on the defaults argument, which is
+ * recommended to have sensible value of the same type to be used when accessed.
+ * 
+ * @param key The key in the provided storage
+ * @param defaults The fallback value if it doesn't exist in the provided storage
+ * @param storage The storage object, from which the values are read and written to
+ * @returns Svelte Writable store wrapping the storage object
+ */
 export function useStorage<T>(key: string, defaults: T, storage?: CustomStorage): Writable<T> {
   const window = defaultWindow
 
@@ -107,9 +116,20 @@ export function useStorage<T>(key: string, defaults: T, storage?: CustomStorage)
   }
 }
 
-export function useLocalStorage<T>(key: string, defaults: undefined): Writable<T>
-export function useLocalStorage<T>(key: string, defaults: T): Writable<T>
-
-export function useLocalStorage<T>(key: string, defaults: undefined): Writable<T> {
+/**
+ * This function is a store generator, which just like useStorage wraps localStorage
+ * and related events to make it possible to sync the stores across this/multiple
+ * tabs.
+ * @see {@link useStorage}
+ * 
+ * This method determines whether to use localStorage or not depending on whether
+ * used in SSR / browser environment. If you don't use SSR, prerendering or other
+ * server rendered method, you can use `useStorage(key, defaults, localStorage)`.
+ * 
+ * @param key The key in the provided storage
+ * @param defaults The fallback value if it doesn't exist in the provided storage
+ * @returns Svelte Writable store wrapping localStorage
+ */
+export function useLocalStorage<T>(key: string, defaults: T): Writable<T> {
   return useStorage(key, defaults, isClient ? localStorage : undefined)
 }
