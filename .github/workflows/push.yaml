@@ -47,4 +47,4 @@ jobs:
       env:
         CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
       with:
-        files: ./coverage/clover.xml
+        files: ./coverage/lcov.info
