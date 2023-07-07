@@ -9,8 +9,6 @@
     "test": "vitest run"
   },
   "devDependencies": {
-    "@vitest/coverage-v8": "^0.32.2",
-    "@vospel/tsconfig": "workspace:^",
-    "vitest": "^0.32.2"
+    "@vospel/tsconfig": "workspace:^"
   }
 }

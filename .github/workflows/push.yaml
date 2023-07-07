@@ -36,5 +36,8 @@ jobs:
     - name: Pnpm install
       run: pnpm i
 
-    - name: Build & Test
-      run: pnpm turbo build test
+    - name: Build
+      run: pnpm build
+
+    - name: Test
+      run: pnpm test
