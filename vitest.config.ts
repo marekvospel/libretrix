@@ -6,7 +6,7 @@ export default defineConfig({
     coverage: {
       enabled: true,
       provider: 'v8',
-      reporter: ['lcov', 'text', 'text-summary']
+      reporter: ['lcov', 'clover', 'text', 'text-summary']
     }
   }
 })
