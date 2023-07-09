@@ -1,4 +1,5 @@
 # 💬 Libretrix
+[![codecov](https://codecov.io/gh/marekvospel/libretrix/branch/main/graph/badge.svg?token=QVDZJ4ZCT1)](https://codecov.io/gh/marekvospel/libretrix)  
 A modern opensource matrix client.
 
 ## 🎓 Project maturity
