@@ -3,11 +3,21 @@ import { redirect } from "@sveltejs/kit";
 import type { LayoutLoad } from "./$types";
 import { authStore } from "../../stores/auth.store";
 import { get } from "svelte/store";
+import { initClient } from "../../matrix";
 
-export const load: LayoutLoad = () => {
+export const load: LayoutLoad = async () => {
 
-  if (browser && (!get(authStore).accessToken || !get(authStore).baseUrl)) {
+  if (!browser)
+    return
+
+  if ((!get(authStore).accessToken || !get(authStore).baseUrl)) {
     throw redirect(302, '/')
+  }
+
+  const startPromise = await initClient()
+
+  return {
+    startPromise
   }
 }
 
