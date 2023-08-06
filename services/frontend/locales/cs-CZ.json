@@ -8,9 +8,16 @@
       "invalidPassword": "Špatné uživatelské jméno nebo heslo",
       "invalidUsername": "Neplatné uživatelské jméno"
     },
-    "homeserver": "Homeserver"
+    "homeserver": "Homeserver",
+    "title": "Libretrix",
+    "seo": {
+      "title": "Přihlásit se | Libretrix"
+    }
   },
   "app": {
     "loading": "Načítání"
+  },
+  "seo": {
+    "description": "Opensource matrix klient"
   }
 }

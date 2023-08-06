@@ -92,7 +92,13 @@
   })
 </script>
 
+<svelte:head>
+  <title>{ $t('auth.seo.title') }</title>
+  <meta name="og:title" content="{ $t('auth.seo.title')}" />
+</svelte:head>
+
 <form on:submit|preventDefault={login} class="flex flex-col gap-2 max-w-100 m-auto py-8">
+  <h1>{ $t('auth.title') }</h1>
   <input bind:value={servername} type="text" class="bg-gray-700 rounded px-2 py-1 border border-transparent { error === 1 ? '!border-red-600' : '' }" placeholder={$t('auth.homeserver')}>
   {#if error === 1}
     <span class="text-red-600 leading-2">{ $t('auth.error.invalidHomeserver') }</span>

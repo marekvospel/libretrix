@@ -8,9 +8,16 @@
       "invalidHomeserver": "Invalid homeserver hostname",
       "invalidUsername": "Invalid username",
       "invalidPassword": "Invalid username or password"
-    }
+    },
+    "seo": {
+      "title": "Sign in | Libretrix"
+    },
+    "title": "Libretrix"
   },
   "app": {
     "loading": "Loading"
+  },
+  "seo": {
+    "description": "A modern opensource matrix client"
   }
 }
