@@ -22,5 +22,10 @@ export default defineConfig({
 		wasm(),
 		UnoCSS(),
 		sveltekit(),
-	]
+	],
+	server: {
+		fs: {
+			allow: ['locales']
+		}
+	}
 });

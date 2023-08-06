@@ -1,0 +1,16 @@
+{
+  "auth": {
+    "signIn": "Sign in",
+    "homeserver": "Homeserver",
+    "username": "Username",
+    "password": "Password",
+    "error": {
+      "invalidHomeserver": "Invalid homeserver hostname",
+      "invalidUsername": "Invalid username",
+      "invalidPassword": "Invalid username or password"
+    }
+  },
+  "app": {
+    "loading": "Loading"
+  }
+}

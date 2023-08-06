@@ -1,0 +1,16 @@
+{
+  "auth": {
+    "signIn": "Přihlásit se",
+    "username": "Uživatelské jméno",
+    "password": "Heslo",
+    "error": {
+      "invalidHomeserver": "Neplatný homeserver",
+      "invalidPassword": "Špatné uživatelské jméno nebo heslo",
+      "invalidUsername": "Neplatné uživatelské jméno"
+    },
+    "homeserver": "Homeserver"
+  },
+  "app": {
+    "loading": "Načítání"
+  }
+}
