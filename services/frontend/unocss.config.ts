@@ -7,5 +7,10 @@ export default defineConfig({
   ],
   transformers: [
     transformerDirectives()
+  ],
+  safelist: [
+    'h-screen',
+    'sticky',
+    'top-0'
   ]
 })

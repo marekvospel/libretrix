@@ -1,5 +1,5 @@
 import { sveltekit } from '@sveltejs/kit/vite'
-import UnoCSS from 'unocss/vite'
+import UnoCSS from '@unocss/svelte-scoped/vite'
 import { defineConfig } from 'vite'
 import { viteStaticCopy } from 'vite-plugin-static-copy'
 import { wasm } from '@rollup/plugin-wasm'
@@ -20,7 +20,9 @@ export default defineConfig({
 			}]
 		}),
 		wasm(),
-		UnoCSS(),
+		UnoCSS({
+			injectReset: '@unocss/reset/tailwind.css',
+		}),
 		sveltekit(),
 	],
 	server: {
