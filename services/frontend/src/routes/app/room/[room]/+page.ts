@@ -6,3 +6,5 @@ export const load: PageLoad = ({ params }) => {
     roomId: params.room
   })
 }
+
+export const prerender = false
