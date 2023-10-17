@@ -7,7 +7,6 @@
 
   async function send() {
     try {
-      console.log(client.getCrypto()?.globalBlacklistUnverifiedDevices)
       await client.sendMessage(currentRoom!, {
         msgtype: "m.text",
         body: message,

@@ -7,8 +7,8 @@ export function registerListeners(client: MatrixClient) {
   // or disconnected messages.
   client.on(ClientEvent.Sync, (state) => {
     stateStore.set(state)
-    client.setGlobalErrorOnUnknownDevices(false)
-    client.getCrypto()!.globalBlacklistUnverifiedDevices = false
+    // @ts-expect-error: ??? https://github.com/matrix-org/matrix-js-sdk/issues/3802
+    client.getCrypto()!.globalErrorOnUnknownDevices = false
   })
 
   // Log out handler, if logged out from the homeserver, clean old tokens and data
