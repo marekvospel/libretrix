@@ -7,6 +7,8 @@ export function registerListeners(client: MatrixClient) {
   // or disconnected messages.
   client.on(ClientEvent.Sync, (state) => {
     stateStore.set(state)
+    client.setGlobalErrorOnUnknownDevices(false)
+    client.getCrypto()!.globalBlacklistUnverifiedDevices = false
   })
 
   // Log out handler, if logged out from the homeserver, clean old tokens and data
