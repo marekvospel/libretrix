@@ -1,5 +1,5 @@
 import { ClientEvent, HttpApiEvent, type MatrixClient } from "matrix-js-sdk"
-import { stateStore } from "../../stores/matrix.store"
+import { stateStore } from "../../stores/matrixState.store"
 
 export function registerListeners(client: MatrixClient) {
 

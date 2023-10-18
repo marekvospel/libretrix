@@ -1,7 +1,8 @@
-import { IndexedDBStore, createClient, type MatrixClient, IndexedDBCryptoStore } from "matrix-js-sdk";
+import { IndexedDBStore, createClient, type MatrixClient, IndexedDBCryptoStore, type EmittedEvents } from "matrix-js-sdk";
 import { authStore } from "../stores/auth.store";
-import { get } from "svelte/store";
+import { get, readable, type Readable } from "svelte/store";
 import { registerListeners } from "./listeners";
+import { browser } from '$app/environment'
 
 export let client!: MatrixClient
 
@@ -41,4 +42,36 @@ export async function initClient(): Promise<{ value: Promise<void> }> {
   })
 }
 
+}
+
+export type MatrixGetReadableMethod<T> = (matrix: MatrixClient) => T
+
+export interface MatrixGetReadableOptions<T> {
+  initialValue: T
+  events?: EmittedEvents[]
+  dependencies?: any[]
+}
+
+export function createMatrixReadable<T>(getMethod: MatrixGetReadableMethod<T>, options: MatrixGetReadableOptions<T>): Readable<T> {
+
+  return readable<T>(options.initialValue, (set) => {
+    if (!browser) return
+
+    const update = () => {
+      set(getMethod(client))
+    }
+
+    for (const event of (options.events ?? [])) {
+      client.on(event, update)
+    }
+
+    set(getMethod(client))
+
+    return () => {
+      for (const event of (options.events ?? [])) {
+        client.off(event, update)
+      }
+
+    }
+  })
 }

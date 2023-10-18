@@ -1,6 +1,6 @@
 <script lang="ts">
   import { SyncState } from "matrix-js-sdk/lib/sync";
-  import { stateStore } from "../../stores/matrix.store";
+  import { stateStore } from "../../stores/matrixState.store";
   import { t } from 'svelte-i18n'
 </script>
 
