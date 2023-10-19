@@ -1,6 +1,6 @@
 import { IndexedDBStore, createClient, type MatrixClient, IndexedDBCryptoStore, type EmittedEvents } from "matrix-js-sdk";
 import { authStore } from "../stores/auth.store";
-import { get, readable, type Readable } from "svelte/store";
+import { get, readable, type Readable, type Stores, type StoresValues } from "svelte/store";
 import { registerListeners } from "./listeners";
 import { browser } from '$app/environment'
 
@@ -44,34 +44,50 @@ export async function initClient(): Promise<{ value: Promise<void> }> {
 
 }
 
-export type MatrixGetReadableMethod<T> = (matrix: MatrixClient) => T
+export type MatrixGetReadableMethod<T, S extends Stores> = (matrix: MatrixClient, stores: StoresValues<S>) => T
 
-export interface MatrixGetReadableOptions<T> {
+export interface MatrixGetReadableOptions<T, S extends Stores> {
   initialValue: T
   events?: EmittedEvents[]
-  dependencies?: any[]
+  dependencies?: S
 }
 
-export function createMatrixReadable<T>(getMethod: MatrixGetReadableMethod<T>, options: MatrixGetReadableOptions<T>): Readable<T> {
+export function createMatrixReadable<T, S extends Stores>(getMethod: MatrixGetReadableMethod<T, S>, options: MatrixGetReadableOptions<T, S>): Readable<T> {
+  const oneDependency = !Array.isArray(options)
+  const dependencies: Readable<any>[] | undefined = options.dependencies ? (oneDependency ? [options.dependencies] : options.dependencies) as Readable<any>[] : undefined
+  const values: any[] = []
+
+  function sync() {
+    return getMethod(client, dependencies ? (oneDependency ? values[0] : values) : undefined)
+  }
 
   return readable<T>(options.initialValue, (set) => {
     if (!browser) return
-
+    
     const update = () => {
-      set(getMethod(client))
+      set(sync())
     }
 
-    for (const event of (options.events ?? [])) {
+    options.events?.forEach((event) => {
       client.on(event, update)
-    }
+    })
 
-    set(getMethod(client))
+    const unsubscribes = dependencies?.map((store, i) => 
+      store.subscribe((value: any) => {
+        values[i] = value
+        set(sync())
+      })
+    )
+
+    set(sync())
 
     return () => {
-      for (const event of (options.events ?? [])) {
+      options.events?.forEach((event) => {
         client.off(event, update)
-      }
+      })
 
+      unsubscribes?.map(u => u())
     }
+
   })
 }
