@@ -15,6 +15,6 @@ export const eventsStore = createMatrixReadable((client, values) => {
   return client.getRoom(values)?.getLiveTimeline().getEvents()
 }, {
   initialValue: undefined,
-  events: [RoomEvent.Timeline],
+  events: [RoomEvent.Timeline, MatrixEventEvent.Decrypted],
   dependencies: currentRoomStore,
 })

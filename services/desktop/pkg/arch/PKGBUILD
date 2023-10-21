@@ -1,0 +1,20 @@
+# Marek Vospěl <marek@vospel.cz>
+
+pkgname='libretrix-bin'
+pkgdesc='Native version of Libretrix'
+url='https://github.com/marekvospel/libretrix'
+pkgver=0.0.0
+pkgrel=1
+arch=('x86_64')
+license=('MIT')
+depends=('webkit2gtk' 'gtk3' 'libappindicator-gtk3' 'librsvg' 'libvips')
+conflicts=()
+
+source=("./libretrix-desktop_${pkgver}_amd64.deb")
+
+sha256sums=('fbd6272c23860d2dd062aca86480f24f56aed8ec13f29effc9f8924be6ea30b4')
+
+package() {
+  tar -xvf ${srcdir}/data.tar.gz
+  cp -r ${srcdir}/usr ${pkgdir}/
+}
