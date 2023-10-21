@@ -5,8 +5,8 @@
     "withGlobalTauri": true
   },
   "package": {
-    "productName": "libretrix-desktop",
-    "version": "0.0.0"
+    "productName": "Libretrix",
+    "version": "0.1.0"
   },
   "tauri": {
     "bundle": {

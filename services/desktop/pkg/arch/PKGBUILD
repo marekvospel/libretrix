@@ -3,16 +3,17 @@
 pkgname='libretrix-bin'
 pkgdesc='Native version of Libretrix'
 url='https://github.com/marekvospel/libretrix'
-pkgver=0.0.0
+pkgver=0.1.0
 pkgrel=1
 arch=('x86_64')
 license=('MIT')
 depends=('webkit2gtk' 'gtk3' 'libappindicator-gtk3' 'librsvg' 'libvips')
 conflicts=()
 
-source=("./libretrix-desktop_${pkgver}_amd64.deb")
+source=("./libretrix_${pkgver}_${arch}.deb")
 
-sha256sums=('fbd6272c23860d2dd062aca86480f24f56aed8ec13f29effc9f8924be6ea30b4')
+# sha256sums=('fbd6272c23860d2dd062aca86480f24f56aed8ec13f29effc9f8924be6ea30b4')
+sha256sums=('SKIP')
 
 package() {
   tar -xvf ${srcdir}/data.tar.gz
