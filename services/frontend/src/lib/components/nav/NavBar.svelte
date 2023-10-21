@@ -1,7 +1,7 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte'
   import { roomsStore } from '../../../stores/matrix.store'
-    import { matrixLogout } from '../../../matrix';
+  import { matrixLogout } from '../../../matrix'
 
   const dispatch = createEventDispatcher()
 

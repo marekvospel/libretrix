@@ -1,6 +1,6 @@
-import { writable } from "svelte/store"
-import { createMatrixReadable } from "../matrix"
-import { ClientEvent, MatrixEventEvent, RoomEvent } from "matrix-js-sdk"
+import { writable } from 'svelte/store'
+import { createMatrixReadable } from '../matrix'
+import { ClientEvent, MatrixEventEvent, RoomEvent } from 'matrix-js-sdk'
 
 export const currentRoomStore = writable<string | undefined>(undefined)
 
@@ -15,6 +15,6 @@ export const eventsStore = createMatrixReadable((client, values) => {
   return client.getRoom(values)?.getLiveTimeline().getEvents()
 }, {
   initialValue: undefined,
-  events: [RoomEvent.Timeline, MatrixEventEvent.Decrypted],
+  events: [RoomEvent.Timeline],
   dependencies: currentRoomStore,
 })

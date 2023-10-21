@@ -1,9 +1,10 @@
 <script lang="ts">
   import NavBar from '$lib/components/nav/NavBar.svelte'
-  import { get } from 'svelte/store';
-  import { client } from '../../matrix';
+  import { get } from 'svelte/store'
+  import { client } from '../../matrix'
   import { currentRoomStore } from '../../stores/matrix.store'
   import { eventsStore } from '../../stores/matrix.store'
+  import MessageEvent from '$lib/components/message/MessageEvent.svelte'
 
   let message = ''
 
@@ -27,20 +28,18 @@
 
 <div class="flex flex-row">
   <NavBar extraClass="sticky top-0 h-screen" on:routeSwitch={(room) => $currentRoomStore = room.detail.roomId}/>
-  <main class="px-4 py-2">
+  <main class="py-2 w-full overflow-x-hidden break-words">
     <p>{ $currentRoomStore }</p>
 
     {#if $currentRoomStore}
-      <ul>
+      <div class="flex flex-col gap-2">
         {#each $eventsStore ?? [] as event (event.getId())}
-          {#if event.getType() === "m.room.message"}
-            <li>{ event.getSender() } { event.getContent()?.body }</li>
-          {/if}
+          <MessageEvent event={event} />
         {/each}
-      </ul>
+      </div>
 
-      <form on:submit|preventDefault={send}>
-        <input bind:value={message} placeholder="Message" class="text-black" />
+      <form class="w-full sticky bottom-2 pt-8 flex flex-row gap-2 px-4" on:submit|preventDefault={send}>
+        <input bind:value={message} placeholder="Message" class="text-black w-full" />
         <button type="submit">Send</button>
       </form>
     {/if}
