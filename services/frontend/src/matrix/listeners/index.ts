@@ -1,5 +1,6 @@
 import { ClientEvent, HttpApiEvent, type MatrixClient } from "matrix-js-sdk"
 import { stateStore } from "../../stores/matrixState.store"
+import { matrixLogout } from ".."
 
 export function registerListeners(client: MatrixClient) {
 
@@ -13,9 +14,6 @@ export function registerListeners(client: MatrixClient) {
 
   // Log out handler, if logged out from the homeserver, clean old tokens and data
   client.on(HttpApiEvent.SessionLoggedOut, async () => {
-    client.stopClient()
-    await client.clearStores()
-    localStorage.removeItem('matrix-secret')
-    window.location.reload()
+    matrixLogout()
   })
 }

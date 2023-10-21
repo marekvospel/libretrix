@@ -35,13 +35,20 @@ export async function initClient(): Promise<{ value: Promise<void> }> {
 
   return {
     value: new Promise(async (resolve) => {
-    await initClient.initCrypto()
-    await initClient.startClient()
+      await initClient.initCrypto()
+      await initClient.startClient()
 
-    resolve()
-  })
+      resolve()
+    })
+  }
+
 }
 
+export async function matrixLogout() {
+    client.stopClient()
+    await client.clearStores()
+    localStorage.removeItem('matrix-secret')
+    window.location.reload()
 }
 
 export type MatrixGetReadableMethod<T, S extends Stores> = (matrix: MatrixClient, stores: StoresValues<S>) => T
