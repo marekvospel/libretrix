@@ -3,6 +3,7 @@ import UnoCSS from '@unocss/svelte-scoped/vite'
 import { defineConfig } from 'vite'
 import { viteStaticCopy } from 'vite-plugin-static-copy'
 import { wasm } from '@rollup/plugin-wasm'
+import { nodePolyfills } from 'vite-plugin-node-polyfills'
 
 export default defineConfig({
 	optimizeDeps: {
@@ -13,6 +14,7 @@ export default defineConfig({
 		}
 	},
 	plugins: [
+		nodePolyfills(),
 		viteStaticCopy({
 			targets: [{
 				src: 'node_modules/@matrix-org/olm/olm.wasm',
