@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "5320204562",
+    "project_id": "libretrix",
+    "storage_bucket": "libretrix.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:5320204562:android:aebbfbd390fd6c6aded3cb",
+        "android_client_info": {
+          "package_name": "org.libretrix.libretrix"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD25JJxce9UVlivumlL8_OD3bF23jQVfA4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

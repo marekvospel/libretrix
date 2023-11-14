@@ -1,8 +1,8 @@
 [package]
-name = "libretrix-desktop"
+name = "libretrix"
 version = "0.0.0"
-description = "A Tauri App"
-authors = ["you"]
+description = "A modern matrix client"
+authors = ["Marek Vospěl"]
 license = ""
 repository = ""
 edition = "2021"
