@@ -1,8 +1,7 @@
 import { writable } from 'svelte/store'
 import { createMatrixReadable } from '../matrix'
 import { ClientEvent, MatrixEventEvent, RoomEvent } from 'matrix-js-sdk'
-
-export const currentRoomStore = writable<string | undefined>(undefined)
+import { appState } from '$lib/app-state'
 
 export const roomsStore = createMatrixReadable((client) => {
   return client.getRooms().sort((a, b) => b.getLastActiveTimestamp() - a.getLastActiveTimestamp())
@@ -12,9 +11,9 @@ export const roomsStore = createMatrixReadable((client) => {
 })
 
 export const eventsStore = createMatrixReadable((client, values) => {
-  return client.getRoom(values)?.getLiveTimeline().getEvents()
+  return client.getRoom(values.selectedRoom)?.getLiveTimeline().getEvents()
 }, {
   initialValue: undefined,
   events: [RoomEvent.Timeline, MatrixEventEvent.Decrypted],
-  dependencies: currentRoomStore,
+  dependencies: appState,
 })
