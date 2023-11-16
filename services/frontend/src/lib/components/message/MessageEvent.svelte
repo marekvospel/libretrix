@@ -3,6 +3,7 @@
   import { createMatrixReadable } from '../../../matrix'
   import { client } from '../../../matrix'
   import { date } from 'svelte-i18n'
+  import MessageImage from './MessageImage.svelte';
 
   export let event: MatrixEvent
 
@@ -33,8 +34,7 @@
         <!-- TODO: formatted body -->
         <p class="font-400 break-all">{ event.getContent().body }</p>
       {:else if event.getContent().msgtype === 'm.image'} 
-        { JSON.stringify(event.getContent()) }
-        <img src={client.mxcUrlToHttp(event.getContent()?.file?.url)} alt={event.getContent().body} />
+        <MessageImage file={event.getContent().file} alt={event.getContent().body} />
       {:else}
         { JSON.stringify(event.getContent()) }
       {/if}

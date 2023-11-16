@@ -21,6 +21,7 @@
 		"@vospel/matrix-utils": "workspace:^",
 		"@vospel/svelte-utils": "workspace:^",
 		"debug": "^4.3.4",
+		"matrix-encrypt-attachment": "^1.0.3",
 		"svelte": "^4.2.1",
 		"svelte-check": "^3.5.2",
 		"svelte-i18n": "^4.0.0",

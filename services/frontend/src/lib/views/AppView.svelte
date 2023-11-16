@@ -4,7 +4,7 @@
   import { client } from '../../matrix'
   import { eventsStore } from '../../stores/matrix.store'
   import MessageEvent from '$lib/components/message/MessageEvent.svelte'
-  import { onMount } from 'svelte';
+  import { onMount, tick } from 'svelte';
   import { appState } from '$lib/app-state';
 
   let message = ''
@@ -44,14 +44,18 @@
   }
   
   onMount(() => {
-    scrollToBottom()
+    tick().then(() => {
+      scrollToBottom()
+    })
   })
 
   $: {
     // Use the current room store so it gets updated when channel is changed
     $appState
     $eventsStore
-    scrollToBottom()
+    tick().then(() => {
+      scrollToBottom()
+    })
   }
 </script>
 
