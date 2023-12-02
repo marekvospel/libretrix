@@ -4,11 +4,9 @@
   import { client } from '../../matrix'
   import { eventsStore } from '../../stores/matrix.store'
   import MessageEvent from '$lib/components/message/MessageEvent.svelte'
-  import { onMount, tick } from 'svelte';
   import { appState } from '$lib/app-state';
 
   let message = ''
-  let chatContainer: HTMLElement
 
   function keydownSend(event: KeyboardEvent) {
     if (event.key === 'Enter' && !event.shiftKey) {
@@ -27,7 +25,6 @@
         body: msg,
       })
       await new Promise(resolve => setTimeout(resolve, 0))
-      scrollToBottom()
     } catch(e) {
       console.warn(e)
     }
@@ -36,43 +33,22 @@
 
   }
 
-  const scrollToBottom = async () => {
-    await new Promise(resolve => setTimeout(resolve, 0))
-    if (!chatContainer)
-      return
-    chatContainer.scrollTop = chatContainer.scrollHeight
-  }
-  
-  onMount(() => {
-    tick().then(() => {
-      scrollToBottom()
-    })
-  })
-
-  $: {
-    // Use the current room store so it gets updated when channel is changed
-    $appState
-    $eventsStore
-    tick().then(() => {
-      scrollToBottom()
-    })
-  }
 </script>
 
 <div class="flex flex-row">
   <NavBar extraClass="sticky top-0 h-screen" on:routeSwitch={(room) => appState.setRoom(room.detail.roomId)}/>
   <div class="w-full h-screen overflow-y-auto relative2">
-    <main bind:this={chatContainer} class="py-2 w-full h-full overflow-x-hidden break-words">
+    <main class="py-2 w-full h-full overflow-x-hidden break-words flex flex-col-reverse">
       {#if $appState.selectedRoom}
+        <form class="w-full sticky bottom-2 pt-8 flex flex-row gap-2 px-4" on:submit|preventDefault={send}>
+          <textarea bind:value={message} on:keydown={keydownSend} placeholder="Message" class="text-black w-full resize-none" />
+          <button type="submit">Send</button>
+        </form>
         <div class="flex flex-col gap-2">
           {#each $eventsStore ?? [] as event (event.getId())}
             <MessageEvent event={event} />
           {/each}
         </div>
-        <form class="w-full sticky bottom-2 pt-8 flex flex-row gap-2 px-4" on:submit|preventDefault={send}>
-          <textarea bind:value={message} on:keydown={keydownSend} placeholder="Message" class="text-black w-full resize-none" />
-          <button type="submit">Send</button>
-        </form>
       {/if}
     </main>
   </div>
