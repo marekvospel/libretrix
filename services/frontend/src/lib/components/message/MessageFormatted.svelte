@@ -1,13 +1,15 @@
 <script lang="ts">
   import 'highlight.js/styles/a11y-dark.min.css'
+
   import { unified } from 'unified'
   import rehypeParse from 'rehype-parse'
   import rehypeStringify from 'rehype-stringify'
   import rehypeSanitize from 'rehype-sanitize'
   import rehypeHighlight from 'rehype-highlight'
-  import { rehypeResolveMxc } from '$lib/unified/rehype-resolve-mxc'
+  import { rehypeResolveMxc } from '@vospel/rehype-resolve-mxc'
+  import { rehypeTwemojify } from '@vospel/rehype-twemojify'
+
   import { client } from '../../../matrix'
-    import { rehypeTwemojify } from '$lib/unified/rehype-twemojify';
 
   export let body: string = ''
 
