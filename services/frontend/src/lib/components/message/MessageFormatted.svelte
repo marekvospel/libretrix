@@ -101,7 +101,7 @@
 }
 
 .formatted-style :global(code) {
-  @apply bg-gray-700 rounded-sm px-0.5 py-0.25 leading-6;
+  @apply bg-surface0 rounded-sm px-0.5 py-0.25 leading-6;
 }
 
 .formatted-style :global(pre) {
@@ -109,7 +109,7 @@
 }
 
 .formatted-style :global(pre) > :global(code) {
-  @apply bg-gray-700 rounded-sm px-4 py-2 max-w-[70ch] block overflow-auto;
+  @apply bg-surface0 rounded-md p-2 max-w-[90ch] block overflow-auto;
 }
 
 .formatted-style :global(blockquote) {

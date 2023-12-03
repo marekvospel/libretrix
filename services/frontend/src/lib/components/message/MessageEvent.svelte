@@ -18,12 +18,12 @@
 <div class="flex flex-row gap-4 w-full px-4 py-2">
   <img
     src={$sender?.avatarUrl ? client.mxcUrlToHttp($sender?.avatarUrl) : undefined} alt="{$sender?.displayName}"
-    class="w-12 h-12 aspect-square rounded-full overflow-hidden flex items-center justify-center bg-gray-600 shrink-0"
+    class="w-12 h-12 aspect-square rounded-full overflow-hidden flex items-center justify-center bg-surface2 shrink-0"
   />
   <div class="flex-col w-full">
     <p class="inline-flex items-center w-full">
       <span class="font-500">{$sender?.displayName}</span>
-      <span class="ml-auto text-gray-600">{ $date(events[0]?.getDate() ?? new Date(), {
+      <span class="ml-auto text-subtext0">{ $date(events[0]?.getDate() ?? new Date(), {
         dateStyle: 'medium',
         timeStyle: 'short'
       }) }</span>

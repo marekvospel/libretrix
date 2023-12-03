@@ -12,7 +12,7 @@ Libretrix has a big advantage, as it is built with the most awesome technology a
 - pnpm
 - SvelteKit
 - UnoCSS
-- Tauri (soon<sup>TM</sup>)
+- Tauri
 - Turborepo
 
 ## 📜 Licensing
