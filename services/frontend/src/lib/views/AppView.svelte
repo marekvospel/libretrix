@@ -5,6 +5,7 @@
   import { eventsStore } from '../../stores/matrix.store'
   import MessageEvent from '$lib/components/message/MessageEvent.svelte'
   import { appState } from '$lib/app-state';
+  import type { MatrixEvent } from 'matrix-js-sdk';
 
   let message = ''
 
@@ -33,6 +34,22 @@
 
   }
 
+  function dedupeEvents(events: MatrixEvent[]): MatrixEvent[][] {
+    let out: MatrixEvent[][] = []
+    let currentSender: string | undefined = undefined
+
+    events.forEach((e) => {
+      if (e.getSender() !== currentSender) {
+        currentSender = e.getSender()
+        out.push([])
+      }
+
+      out[out.length - 1].push(e)
+    })
+
+    return out
+  }
+
 </script>
 
 <div class="flex flex-row">
@@ -45,8 +62,8 @@
           <button type="submit">Send</button>
         </form>
         <div class="flex flex-col gap-2">
-          {#each $eventsStore ?? [] as event (event.getId())}
-            <MessageEvent event={event} />
+          {#each dedupeEvents($eventsStore ?? []) as events (events[0]?.getId())}
+            <MessageEvent events={events} />
           {/each}
         </div>
       {/if}

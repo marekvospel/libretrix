@@ -1,4 +1,3 @@
-import { writable } from 'svelte/store'
 import { createMatrixReadable } from '../matrix'
 import { ClientEvent, MatrixEventEvent, RoomEvent } from 'matrix-js-sdk'
 import { appState } from '$lib/app-state'

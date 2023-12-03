@@ -7,6 +7,6 @@ import { t } from 'svelte-i18n'
   <meta name="og:description" content="{ $t('seo.description') }"/>
 </svelte:head>
 
-<div class="min-h-screen w-full h-full bg-gray-900 text-gray-100">
+<div class="min-h-screen w-full h-full flex flex-col bg-gray-900 text-gray-100">
   <slot />
 </div>

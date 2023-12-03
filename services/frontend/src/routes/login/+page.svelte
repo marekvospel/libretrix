@@ -49,7 +49,7 @@
     } catch {
       return error = 1
     }
-   
+
     try {
       const result = await client.login('m.login.password', {
         identifier: {
@@ -68,17 +68,17 @@
         userId: result.user_id,
         baseUrl,
       })
-      
+
       await goto('/')
     } catch(e: unknown) {
 
       if (typeof e !== 'object' || !e || !('errcode' in e)) return
-      
+
       switch (e?.errcode) {
         case 'M_UNKNOWN':
           error = 2
         break
-        default: 
+        default:
           error = 3
         break
       }
@@ -97,7 +97,7 @@
   <meta name="og:title" content="{ $t('auth.seo.title')}" />
 </svelte:head>
 
-<form on:submit|preventDefault={login} class="flex flex-col gap-2 max-w-100 m-auto py-8">
+<form on:submit|preventDefault={login} class="flex flex-col gap-2 w-full max-w-100 mx-auto py-8">
   <h1 class="text-2xl font-bold mb-8">{ $t('auth.title') }</h1>
   <input bind:value={servername} type="text" class="bg-gray-700 rounded px-2 py-1 border border-transparent { error === 1 ? '!border-red-600' : '' }" placeholder={$t('auth.homeserver')}>
   {#if error === 1}
@@ -115,3 +115,10 @@
 
   <button type="submit" class="bg-cyan-500 py-1 rounded">{ $t('auth.signIn') }</button>
 </form>
+
+<div class="mt-auto px-4 py-1 text-gray">
+  <p>Attributions:</p>
+  <ul>
+    <li><a href="https://twemoji.twitter.com" target="_blank" rel="noreferrer noopener" class="underline">Twemoji</a> by &copy; <a href="https://twemoji.twitter.com" target="_blank" rel="noreferrer noopener" class="underline">Twitter, Inc and other contributors</a> used under the terms of CC-BY 4.0</li>
+  </ul>
+</div>
