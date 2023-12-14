@@ -140,4 +140,8 @@
 .formatted-style :global([data-lb-twemoji]) {
   @apply h-8;
 }
+
+.formatted-style :global(img) {
+  @apply inline-block m-0 mx-1;
+}
 </style>

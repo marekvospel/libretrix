@@ -26,7 +26,7 @@ export async function initClient(): Promise<{ value: Promise<void> }> {
     cryptoStore: new IndexedDBCryptoStore(window.indexedDB, 'matrix-crypto-store'),
     verificationMethods: [
       'm.sas.v1'
-    ]
+    ],
   })
 
   registerListeners(initClient)

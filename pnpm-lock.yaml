@@ -97,6 +97,9 @@ importers:
       '@iconify-json/bx':
         specifier: ^1.1.7
         version: 1.1.7
+      '@iconify-json/twemoji':
+        specifier: ^1.1.15
+        version: 1.1.15
       '@matrix-org/olm':
         specifier: ^3.2.15
         version: 3.2.15
@@ -966,6 +969,12 @@ packages:
 
   /@iconify-json/bx@1.1.7:
     resolution: {integrity: sha512-Ugh8uUU9VtK8fI9BBnhLA7VvhPh7erSmJz+eqjvl8HCRRjkz5mbMO5/KYpCOriUVdiiKB9Yv1ObMqS73WLMSwA==}
+    dependencies:
+      '@iconify/types': 2.0.0
+    dev: true
+
+  /@iconify-json/twemoji@1.1.15:
+    resolution: {integrity: sha512-ze2CAOwIWBKIP6ih6qMDItasVjRicktl2Qr3/ohZSMToAHm9z3Q6HCwE48eT0+D+uFpGBlNRQ22HHyE5izyhDg==}
     dependencies:
       '@iconify/types': 2.0.0
     dev: true

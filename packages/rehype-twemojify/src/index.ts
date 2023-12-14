@@ -10,6 +10,7 @@ export const rehypeTwemojify: Plugin<[], Root, Root> = () => {
       // unicode emoji regex
       /\p{Emoji}/gu, (node) => {
         if (typeof node !== 'string') return node
+        if (/[0-9]/.test(node)) return node
 
         let code = node.codePointAt(0)!
         let hex

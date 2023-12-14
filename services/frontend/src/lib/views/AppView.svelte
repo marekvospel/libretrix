@@ -20,6 +20,8 @@
     const msg = message
     message = ''
 
+    if (msg.trim() === '') return
+
     try {
       await client.sendMessage(get(appState)!.selectedRoom!, {
         msgtype: "m.text",
@@ -55,11 +57,18 @@
 <div class="flex flex-row">
   <NavBar extraClass="sticky top-0 h-screen" on:routeSwitch={(room) => appState.setRoom(room.detail.roomId)}/>
   <div class="w-full h-screen overflow-y-auto relative2">
-    <main class="py-2 w-full h-full overflow-x-hidden break-words flex flex-col-reverse">
+    <main class="pt-2 w-full h-full overflow-x-hidden break-words flex flex-col-reverse">
       {#if $appState.selectedRoom}
-        <form class="w-full sticky bottom-2 pt-8 flex flex-row gap-2 px-4" on:submit|preventDefault={send}>
-          <textarea bind:value={message} on:keydown={keydownSend} placeholder="Message" class="text-black w-full resize-none" />
-          <button type="submit">Send</button>
+        <form class="w-full sticky bottom-0 flex px-4 py-4 bg-base" on:submit|preventDefault={send}>
+          <div class="w-full flex flex-row gap-2 bg-surface0 border border-surface1 rounded-xl p-2">
+            <textarea bind:value={message} on:keydown={keydownSend} placeholder="Message" class="w-full resize-none bg-transparent border-none h-[1.5em] outline-none" />
+            <button type="button" class="aspect-square flex flex-row items-center filter-grayscale focus:filter-grayscale-0 hover:filter-grayscale-0 transition-all duration-300">
+              <span class="inline-block i-twemoji:face-with-tears-of-joy text-xl" />
+            </button>
+            <button type="submit" class="flex flex-row items-center hover:text-teal focus:text-teal transition-colors duration-300">
+              <span class="inline-block i-bx:send text-2xl" />
+            </button>
+          </div>
         </form>
         <div class="flex flex-col gap-2">
           {#each dedupeEvents($eventsStore ?? []) as events (events[0]?.getId())}

@@ -10,7 +10,11 @@ export const roomsStore = createMatrixReadable((client) => {
 })
 
 export const eventsStore = createMatrixReadable((client, values) => {
-  return client.getRoom(values.selectedRoom)?.getLiveTimeline().getEvents()
+  const timeline = client.getRoom(values.selectedRoom)?.getLiveTimeline()
+  if (timeline) {
+    client.paginateEventTimeline(timeline, { backwards: true, limit: 30 })
+  }
+  return timeline?.getEvents()
 }, {
   initialValue: undefined,
   events: [RoomEvent.Timeline, MatrixEventEvent.Decrypted],

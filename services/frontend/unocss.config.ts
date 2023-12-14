@@ -17,6 +17,8 @@ export default defineConfig({
     colors: {
       mauve: '#cba6f7',
       red: '#f38ba8',
+      teal: '#179299',
+      sky: '#04a5e5',
       text: '#cdd6f4',
       subtext1: '#bac2de',
       subtext0: '#a6adc8',
