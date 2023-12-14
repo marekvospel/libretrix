@@ -37,7 +37,7 @@
             {#if event.getContent().format === 'org.matrix.custom.html'}
               <MessageFormatted body={event.getContent().formatted_body} />
             {:else}
-              <p class="font-400 break-all">{ event.getContent().body }</p>
+              <MessageFormatted body={ event.getContent().body } />
             {/if}
           {:else if event.getContent().msgtype === 'm.image'}
             <MessageImage file={event.getContent().file} alt={event.getContent().body} />
@@ -49,7 +49,7 @@
             <img src={client.mxcUrlToHttp(event.getContent().url)} alt={event.getContent().body} />
           {/if}
         {:else}
-          <p class="font-400">{ event.getType() } { JSON.stringify(event.getContent()) }</p>
+          <p class="font-400 text-subtext0">{ event.getType() } { JSON.stringify(event.getContent()) }</p>
         {/if}
       </div>
     {/each}
