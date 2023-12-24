@@ -94,9 +94,15 @@ importers:
         specifier: ^30.1.0
         version: 30.1.0
     devDependencies:
+      '@floating-ui/dom':
+        specifier: ^1.5.3
+        version: 1.5.3
       '@iconify-json/bx':
         specifier: ^1.1.7
         version: 1.1.7
+      '@iconify-json/bxs':
+        specifier: ^1.1.10
+        version: 1.1.10
       '@iconify-json/twemoji':
         specifier: ^1.1.15
         version: 1.1.15
@@ -136,6 +142,9 @@ importers:
       debug:
         specifier: ^4.3.4
         version: 4.3.4
+      emojibase-data:
+        specifier: ^15.3.0
+        version: 15.3.0(emojibase@15.3.0)
       highlight.js:
         specifier: ^11.9.0
         version: 11.9.0
@@ -180,7 +189,7 @@ importers:
         version: 0.58.0(postcss@8.4.32)(vite@4.4.11)
       vite:
         specifier: ^4.4.11
-        version: 4.4.11
+        version: 4.4.11(@types/node@20.10.3)
       vite-plugin-node-polyfills:
         specifier: ^0.16.0
         version: 0.16.0(vite@4.4.11)
@@ -933,6 +942,23 @@ packages:
     engines: {node: '>=14'}
     dev: true
 
+  /@floating-ui/core@1.5.2:
+    resolution: {integrity: sha512-Ii3MrfY/GAIN3OhXNzpCKaLxHQfJF9qvwq/kEJYdqDxeIHa01K8sldugal6TmeeXl+WMvhv9cnVzUTaFFJF09A==}
+    dependencies:
+      '@floating-ui/utils': 0.1.6
+    dev: true
+
+  /@floating-ui/dom@1.5.3:
+    resolution: {integrity: sha512-ClAbQnEqJAKCJOEbbLo5IUlZHkNszqhuxS4fHAVxRPXPya6Ysf2G8KypnYcOTpx6I8xcgF9bbHb6g/2KpbV8qA==}
+    dependencies:
+      '@floating-ui/core': 1.5.2
+      '@floating-ui/utils': 0.1.6
+    dev: true
+
+  /@floating-ui/utils@0.1.6:
+    resolution: {integrity: sha512-OfX7E2oUDYxtBvsuS4e/jSn4Q9Qb6DzgeYtsAdkPZ47znpoNsMgZw0+tVijiv3uGNR6dgNlty6r9rzIzHjtd/A==}
+    dev: true
+
   /@formatjs/ecma402-abstract@1.17.2:
     resolution: {integrity: sha512-k2mTh0m+IV1HRdU0xXM617tSQTi53tVR2muvYOsBeYcUgEAyxV1FOC7Qj279th3fBVQ+Dj6muvNJZcHSPNdbKg==}
     dependencies:
@@ -969,6 +995,12 @@ packages:
 
   /@iconify-json/bx@1.1.7:
     resolution: {integrity: sha512-Ugh8uUU9VtK8fI9BBnhLA7VvhPh7erSmJz+eqjvl8HCRRjkz5mbMO5/KYpCOriUVdiiKB9Yv1ObMqS73WLMSwA==}
+    dependencies:
+      '@iconify/types': 2.0.0
+    dev: true
+
+  /@iconify-json/bxs@1.1.10:
+    resolution: {integrity: sha512-USVukTRq5PDT3KVVePYzHgYBtO9PYi4oNFuBpMf/Q1BFHAiwyP8zVewgXR1a6w/XMDIiQ3gVuTX7upkXv7cjgw==}
     dependencies:
       '@iconify/types': 2.0.0
     dev: true
@@ -1188,7 +1220,7 @@ packages:
       svelte: 4.2.1
       tiny-glob: 0.2.9
       undici: 5.25.4
-      vite: 4.4.11
+      vite: 4.4.11(@types/node@20.10.3)
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -1204,7 +1236,7 @@ packages:
       '@sveltejs/vite-plugin-svelte': 2.4.6(svelte@4.2.1)(vite@4.4.11)
       debug: 4.3.4
       svelte: 4.2.1
-      vite: 4.4.11
+      vite: 4.4.11(@types/node@20.10.3)
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -1223,7 +1255,7 @@ packages:
       magic-string: 0.30.5
       svelte: 4.2.1
       svelte-hmr: 0.15.3(svelte@4.2.1)
-      vite: 4.4.11
+      vite: 4.4.11(@types/node@20.10.3)
       vitefu: 0.2.5(vite@4.4.11)
     transitivePeerDependencies:
       - supports-color
@@ -1426,7 +1458,7 @@ packages:
       '@unocss/core': 0.58.0
       '@unocss/reset': 0.58.0
       '@unocss/vite': 0.58.0(vite@4.4.11)
-      vite: 4.4.11
+      vite: 4.4.11(@types/node@20.10.3)
     transitivePeerDependencies:
       - rollup
     dev: true
@@ -1649,7 +1681,7 @@ packages:
       chokidar: 3.5.3
       fast-glob: 3.3.2
       magic-string: 0.30.5
-      vite: 4.4.11
+      vite: 4.4.11(@types/node@20.10.3)
     transitivePeerDependencies:
       - rollup
     dev: true
@@ -2344,6 +2376,18 @@ packages:
       inherits: 2.0.4
       minimalistic-assert: 1.0.1
       minimalistic-crypto-utils: 1.0.1
+    dev: true
+
+  /emojibase-data@15.3.0(emojibase@15.3.0):
+    resolution: {integrity: sha512-cYsGq57W8wOd1CqQCjmtP1DpmlTVvJY+Um5UobWUQuTnqb8cO2cuqrxJxSIqxLcYZ3rtialT5kivoWigszdslg==}
+    peerDependencies:
+      emojibase: '*'
+    dependencies:
+      emojibase: 15.3.0
+    dev: true
+
+  /emojibase@15.3.0:
+    resolution: {integrity: sha512-lFdQb14hoznwDh1xDoOFzkPdeeexmbuJdhUUjDaJZf/+jK+6Z3HkI5hWOemWfEdaMxtTujc1vNRx9DKtdtiOXA==}
     dev: true
 
   /entities@4.5.0:
@@ -4618,7 +4662,7 @@ packages:
       '@unocss/transformer-directives': 0.58.0
       '@unocss/transformer-variant-group': 0.58.0
       '@unocss/vite': 0.58.0(vite@4.4.11)
-      vite: 4.4.11
+      vite: 4.4.11(@types/node@20.10.3)
     transitivePeerDependencies:
       - postcss
       - rollup
@@ -4730,7 +4774,7 @@ packages:
       buffer-polyfill: /buffer@6.0.3
       node-stdlib-browser: 1.2.0
       process: 0.11.10
-      vite: 4.4.11
+      vite: 4.4.11(@types/node@20.10.3)
     transitivePeerDependencies:
       - rollup
     dev: true
@@ -4745,42 +4789,7 @@ packages:
       fast-glob: 3.3.1
       fs-extra: 11.1.1
       picocolors: 1.0.0
-      vite: 4.4.11
-    dev: true
-
-  /vite@4.4.11:
-    resolution: {integrity: sha512-ksNZJlkcU9b0lBwAGZGGaZHCMqHsc8OpgtoYhsQ4/I2v5cnpmmmqe5pM4nv/4Hn6G/2GhTdj0DhZh2e+Er1q5A==}
-    engines: {node: ^14.18.0 || >=16.0.0}
-    hasBin: true
-    peerDependencies:
-      '@types/node': '>= 14'
-      less: '*'
-      lightningcss: ^1.21.0
-      sass: '*'
-      stylus: '*'
-      sugarss: '*'
-      terser: ^5.4.0
-    peerDependenciesMeta:
-      '@types/node':
-        optional: true
-      less:
-        optional: true
-      lightningcss:
-        optional: true
-      sass:
-        optional: true
-      stylus:
-        optional: true
-      sugarss:
-        optional: true
-      terser:
-        optional: true
-    dependencies:
-      esbuild: 0.18.20
-      postcss: 8.4.31
-      rollup: 3.29.4
-    optionalDependencies:
-      fsevents: 2.3.3
+      vite: 4.4.11(@types/node@20.10.3)
     dev: true
 
   /vite@4.4.11(@types/node@20.10.3):
@@ -4827,7 +4836,7 @@ packages:
       vite:
         optional: true
     dependencies:
-      vite: 4.4.11
+      vite: 4.4.11(@types/node@20.10.3)
     dev: true
 
   /vitest@0.34.6:

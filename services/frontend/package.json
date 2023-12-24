@@ -10,7 +10,9 @@
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
 	},
 	"devDependencies": {
+		"@floating-ui/dom": "^1.5.3",
 		"@iconify-json/bx": "^1.1.7",
+		"@iconify-json/bxs": "^1.1.10",
 		"@iconify-json/twemoji": "^1.1.15",
 		"@matrix-org/olm": "^3.2.15",
 		"@rollup/plugin-wasm": "^6.2.2",
@@ -24,6 +26,7 @@
 		"@vospel/rehype-twemojify": "workspace:^",
 		"@vospel/svelte-utils": "workspace:^",
 		"debug": "^4.3.4",
+		"emojibase-data": "^15.3.0",
 		"highlight.js": "^11.9.0",
 		"matrix-encrypt-attachment": "^1.0.3",
 		"rehype-highlight": "^7.0.0",

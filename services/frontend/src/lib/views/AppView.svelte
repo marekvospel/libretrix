@@ -6,6 +6,8 @@
   import MessageEvent from '$lib/components/message/MessageEvent.svelte'
   import { appState } from '$lib/app-state';
   import type { MatrixEvent } from 'matrix-js-sdk';
+  import SveltePopper from '$lib/components/popper/SveltePopper.svelte';
+  import EmojiPicker from '$lib/components/message/EmojiPicker.svelte';
 
   let message = ''
 
@@ -62,9 +64,12 @@
         <form class="w-full sticky bottom-0 flex px-4 py-4 bg-base" on:submit|preventDefault={send}>
           <div class="w-full flex flex-row gap-2 bg-surface0 border border-surface1 rounded-xl p-2">
             <textarea bind:value={message} on:keydown={keydownSend} placeholder="Message" class="w-full resize-none bg-transparent border-none h-[1.5em] outline-none" />
-            <button type="button" class="aspect-square flex flex-row items-center filter-grayscale focus:filter-grayscale-0 hover:filter-grayscale-0 transition-all duration-300">
-              <span class="inline-block i-twemoji:face-with-tears-of-joy text-xl" />
-            </button>
+            <SveltePopper let:open>
+              <button type="button" class="aspect-square flex flex-row items-center filter-grayscale focus-visible:filter-grayscale-0 hover:filter-grayscale-0 transition-all duration-300 { open ? '!filter-grayscale-0' : ''}">
+                <span class="inline-block i-twemoji:face-with-tears-of-joy text-xl" />
+              </button>
+              <EmojiPicker slot="tooltip" on:emoji={(emoji) => message += emoji.detail } />
+            </SveltePopper>
             <button type="submit" class="flex flex-row items-center hover:text-teal focus:text-teal transition-colors duration-300">
               <span class="inline-block i-bx:send text-2xl" />
             </button>
