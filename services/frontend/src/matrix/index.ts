@@ -5,6 +5,7 @@ import { registerListeners } from "./listeners";
 import { browser } from '$app/environment'
 
 export let client!: MatrixClient
+export const storageKeys = new Map<string, Uint8Array>()
 
 export async function initClient(): Promise<{ value: Promise<void> }> {
   const authData = get(authStore)
@@ -24,6 +25,18 @@ export async function initClient(): Promise<{ value: Promise<void> }> {
     userId: authData.userId,
     store,
     cryptoStore: new IndexedDBCryptoStore(window.indexedDB, 'matrix-crypto-store'),
+    cryptoCallbacks: {
+      getSecretStorageKey: async ({ keys }) => {
+        const keyIds = Object.keys(keys);
+        const keyId = keyIds.find(k => storageKeys.has(k));
+        if (!keyId) return null
+        const privateKey = storageKeys.get(keyId)!;
+        return [keyId, privateKey];
+      },
+      cacheSecretStorageKey: async (keyId, _info, key) => {
+        storageKeys.set(keyId, key);
+      },
+    },
     verificationMethods: [
       'm.sas.v1'
     ],

@@ -1,6 +1,6 @@
 import { readable } from "svelte/store"
 
-export type AppRoutes = 'rooms' | 'settings'
+export type AppRoutes = 'room' | 'settings'
 
 export class AppState<Routes extends string = AppRoutes> {
   route: Routes
@@ -12,7 +12,7 @@ export class AppState<Routes extends string = AppRoutes> {
 }
 
 export const appState = (() => {
-  const appState = new AppState<AppRoutes>('rooms')
+  const appState = new AppState<AppRoutes>('room')
   let setter: (value: AppState) => void
   const store = readable(appState, (set) => {
     setter = set

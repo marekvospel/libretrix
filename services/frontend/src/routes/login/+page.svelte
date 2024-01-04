@@ -113,7 +113,7 @@
     <span class="text-red-600 leading-2">{ $t('auth.error.invalidPassword') }</span>
   {/if}
 
-  <button type="submit" class="bg-cyan-500 py-1 rounded">{ $t('auth.signIn') }</button>
+  <button type="submit" class="bg-cyan-500 py-1 px-2 rounded">{ $t('auth.signIn') }</button>
 </form>
 
 <div class="mt-auto px-4 py-1 text-gray">

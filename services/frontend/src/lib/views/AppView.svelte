@@ -8,6 +8,7 @@
   import type { MatrixEvent } from 'matrix-js-sdk';
   import SveltePopper from '$lib/components/popper/SveltePopper.svelte';
   import EmojiPicker from '$lib/components/message/EmojiPicker.svelte';
+  import SettingsPage from './pages/SettingsPage.svelte';
 
   let message = ''
 
@@ -57,29 +58,37 @@
 </script>
 
 <div class="flex flex-row">
-  <NavBar extraClass="sticky top-0 h-screen" on:routeSwitch={(room) => appState.setRoom(room.detail.roomId)}/>
+  <NavBar extraClass="sticky top-0 h-screen" on:routeSwitch={(event) => { appState.setRoute(event.detail.route ?? $appState.route); if (event.detail.roomId) appState.setRoom(event.detail.roomId) }}/>
   <div class="w-full h-screen overflow-y-auto relative2">
-    <main class="pt-2 w-full h-full overflow-x-hidden break-words flex flex-col-reverse">
-      {#if $appState.selectedRoom}
-        <form class="w-full sticky bottom-0 flex px-4 py-4 bg-base" on:submit|preventDefault={send}>
-          <div class="w-full flex flex-row gap-2 bg-surface0 border border-surface1 rounded-xl p-2">
-            <textarea bind:value={message} on:keydown={keydownSend} placeholder="Message" class="w-full resize-none bg-transparent border-none h-[1.5em] outline-none" />
-            <SveltePopper let:open>
-              <button type="button" class="aspect-square flex flex-row items-center filter-grayscale focus-visible:filter-grayscale-0 hover:filter-grayscale-0 transition-all duration-300 { open ? '!filter-grayscale-0' : ''}">
-                <span class="inline-block i-twemoji:face-with-tears-of-joy text-xl" />
-              </button>
-              <EmojiPicker slot="tooltip" on:emoji={(emoji) => message += emoji.detail } />
-            </SveltePopper>
-            <button type="submit" class="flex flex-row items-center hover:text-teal focus:text-teal transition-colors duration-300">
-              <span class="inline-block i-bx:send text-2xl" />
-            </button>
+    <main class="pt-2 w-full h-full">
+      {#if $appState.route === 'room' }
+        {#if $appState.selectedRoom }
+          <div class="h-full w-full overflow-x-hidden break-words flex flex-col-reverse">
+            <form class="w-full sticky bottom-0 flex px-4 py-4 bg-base" on:submit|preventDefault={send}>
+              <div class="w-full flex flex-row gap-2 bg-surface0 border border-surface1 rounded-xl p-2">
+                <textarea bind:value={message} on:keydown={keydownSend} placeholder="Message" class="w-full resize-none bg-transparent border-none h-[1.5em] outline-none" />
+                <SveltePopper let:open>
+                  <button type="button" class="aspect-square flex flex-row items-center filter-grayscale focus-visible:filter-grayscale-0 hover:filter-grayscale-0 transition-all duration-300 { open ? '!filter-grayscale-0' : ''}">
+                    <span class="inline-block i-twemoji:face-with-tears-of-joy text-xl" />
+                  </button>
+                  <EmojiPicker slot="tooltip" on:emoji={(emoji) => message += emoji.detail } />
+                </SveltePopper>
+                <button type="submit" class="flex flex-row items-center hover:text-teal focus:text-teal transition-colors duration-300">
+                  <span class="inline-block i-bx:send text-2xl" />
+                </button>
+              </div>
+            </form>
+            <div class="flex flex-col gap-2">
+              {#each dedupeEvents($eventsStore ?? []) as events (events[0]?.getId())}
+                <MessageEvent events={events} />
+              {/each}
+            </div>
           </div>
-        </form>
-        <div class="flex flex-col gap-2">
-          {#each dedupeEvents($eventsStore ?? []) as events (events[0]?.getId())}
-            <MessageEvent events={events} />
-          {/each}
-        </div>
+        {:else}
+          <h2 class="text-xl">No room selected</h2>
+        {/if}
+      {:else if $appState.route == 'settings'}
+        <SettingsPage />
       {/if}
     </main>
   </div>
