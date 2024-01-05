@@ -1,5 +1,5 @@
-import { createMatrixReadable } from '../matrix'
 import { ClientEvent, MatrixEventEvent, RoomEvent } from 'matrix-js-sdk'
+import { createMatrixReadable } from '../matrix'
 import { appState } from '$lib/app-state'
 
 export const roomsStore = createMatrixReadable((client) => {
@@ -11,9 +11,9 @@ export const roomsStore = createMatrixReadable((client) => {
 
 export const eventsStore = createMatrixReadable((client, values) => {
   const timeline = client.getRoom(values.selectedRoom)?.getLiveTimeline()
-  if (timeline) {
+  if (timeline)
     client.paginateEventTimeline(timeline, { backwards: true, limit: 30 })
-  }
+
   return timeline?.getEvents()
 }, {
   initialValue: undefined,

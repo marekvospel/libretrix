@@ -1,9 +1,8 @@
-import { ClientEvent, HttpApiEvent, type MatrixClient } from "matrix-js-sdk"
-import { stateStore } from "../../stores/matrixState.store"
-import { matrixLogout } from ".."
+import { ClientEvent, HttpApiEvent, type MatrixClient } from 'matrix-js-sdk'
+import { stateStore } from '../../stores/matrixState.store'
+import { matrixLogout } from '..'
 
 export function registerListeners(client: MatrixClient) {
-
   // Sync state with state store, which is used to show loading spinners
   // or disconnected messages.
   client.on(ClientEvent.Sync, (state) => {

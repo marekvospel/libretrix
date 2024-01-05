@@ -1,4 +1,4 @@
-import { defineConfig } from "vitest/config";
+import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
   test: {
@@ -6,7 +6,7 @@ export default defineConfig({
     coverage: {
       enabled: true,
       provider: 'v8',
-      reporter: ['lcov', 'clover', 'text', 'text-summary']
-    }
-  }
+      reporter: ['lcov', 'clover', 'text', 'text-summary'],
+    },
+  },
 })

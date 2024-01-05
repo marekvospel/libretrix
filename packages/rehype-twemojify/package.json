@@ -4,12 +4,12 @@
   "private": true,
   "main": "src/index.ts",
   "types": "src/index.ts",
+  "dependencies": {
+    "hast-util-find-and-replace": "^5.0.1"
+  },
   "devDependencies": {
     "@vospel/tsconfig": "workspace:^",
     "rehype-parse": "^9.0.0",
     "unified": "^11.0.4"
-  },
-  "dependencies": {
-    "hast-util-find-and-replace": "^5.0.1"
   }
 }

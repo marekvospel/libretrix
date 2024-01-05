@@ -1,7 +1,7 @@
 {
   "name": "@vospel/matrix-utils",
-  "version": "1.0.0",
   "type": "module",
+  "version": "1.0.0",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {

@@ -1,9 +1,10 @@
-import { IndexedDBStore, createClient, type MatrixClient, IndexedDBCryptoStore, type EmittedEvents } from "matrix-js-sdk";
-import { authStore } from "../stores/auth.store";
-import { get, readable, type Readable, type Stores, type StoresValues } from "svelte/store";
-import { registerListeners } from "./listeners";
+import { type EmittedEvents, IndexedDBCryptoStore, IndexedDBStore, type MatrixClient, createClient } from 'matrix-js-sdk'
+import { type Readable, type Stores, type StoresValues, get, readable } from 'svelte/store'
+import { authStore } from '../stores/auth.store'
+import { registerListeners } from './listeners'
 import { browser } from '$app/environment'
 
+// eslint-disable-next-line import/no-mutable-exports
 export let client!: MatrixClient
 export const storageKeys = new Map<string, Uint8Array>()
 
@@ -13,7 +14,7 @@ export async function initClient(): Promise<{ value: Promise<void> }> {
   const store = new IndexedDBStore({
     indexedDB: window.indexedDB,
     localStorage: window.localStorage,
-    dbName: 'matrix-store'
+    dbName: 'matrix-store',
   })
 
   await store.startup()
@@ -27,18 +28,19 @@ export async function initClient(): Promise<{ value: Promise<void> }> {
     cryptoStore: new IndexedDBCryptoStore(window.indexedDB, 'matrix-crypto-store'),
     cryptoCallbacks: {
       getSecretStorageKey: async ({ keys }) => {
-        const keyIds = Object.keys(keys);
-        const keyId = keyIds.find(k => storageKeys.has(k));
-        if (!keyId) return null
-        const privateKey = storageKeys.get(keyId)!;
-        return [keyId, privateKey];
+        const keyIds = Object.keys(keys)
+        const keyId = keyIds.find(k => storageKeys.has(k))
+        if (!keyId)
+          return null
+        const privateKey = storageKeys.get(keyId)!
+        return [keyId, privateKey]
       },
       cacheSecretStorageKey: async (keyId, _info, key) => {
-        storageKeys.set(keyId, key);
+        storageKeys.set(keyId, key)
       },
     },
     verificationMethods: [
-      'm.sas.v1'
+      'm.sas.v1',
     ],
   })
 
@@ -47,21 +49,20 @@ export async function initClient(): Promise<{ value: Promise<void> }> {
   client = initClient
 
   return {
-    value: new Promise(async (resolve) => {
-      await initClient.initCrypto()
-      await initClient.startClient()
-
-      resolve()
-    })
+    value: new Promise((resolve, reject) => {
+      initClient.initCrypto()
+        .then(() => initClient.startClient())
+        .then(resolve)
+        .catch(reject)
+    }),
   }
-
 }
 
 export async function matrixLogout() {
-    client.stopClient()
-    await client.clearStores()
-    localStorage.removeItem('matrix-secret')
-    window.location.reload()
+  client.stopClient()
+  await client.clearStores()
+  localStorage.removeItem('matrix-secret')
+  window.location.reload()
 }
 
 export type MatrixGetReadableMethod<T, S extends Stores> = (matrix: MatrixClient, stores: StoresValues<S>) => T
@@ -82,8 +83,9 @@ export function createMatrixReadable<T, S extends Stores>(getMethod: MatrixGetRe
   }
 
   return readable<T>(options.initialValue, (set) => {
-    if (!browser) return
-    
+    if (!browser)
+      return
+
     const update = () => {
       set(sync())
     }
@@ -92,11 +94,11 @@ export function createMatrixReadable<T, S extends Stores>(getMethod: MatrixGetRe
       client.on(event, update)
     })
 
-    const unsubscribes = dependencies?.map((store, i) => 
+    const unsubscribes = dependencies?.map((store, i) =>
       store.subscribe((value: any) => {
         values[i] = value
         set(sync())
-      })
+      }),
     )
 
     set(sync())
@@ -108,6 +110,5 @@ export function createMatrixReadable<T, S extends Stores>(getMethod: MatrixGetRe
 
       unsubscribes?.map(u => u())
     }
-
   })
 }

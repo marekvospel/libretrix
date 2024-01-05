@@ -1,4 +1,4 @@
-import { useLocalStorage } from "@vospel/svelte-utils"
+import { useLocalStorage } from '@vospel/svelte-utils'
 
 export interface AuthStore {
   accessToken: string

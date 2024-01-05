@@ -1,8 +1,7 @@
-import { get } from "svelte/store"
-import { useStorage } from "../../src"
+import { get } from 'svelte/store'
+import { useStorage } from '../../src'
 
 describe('useStorage', () => {
-
   it('should load string from localStorage', () => {
     localStorage.setItem('test-1', 'hello')
 
@@ -43,7 +42,6 @@ describe('useStorage', () => {
     })
   })
 
-
   it('should be updated by other store', () => {
     const store = useStorage<object>('test-6', undefined, localStorage)
     const store2 = useStorage<object>('test-6', undefined, localStorage)
@@ -54,5 +52,4 @@ describe('useStorage', () => {
     expect(get(store)).toStrictEqual({ test: true })
     expect(get(store2)).toStrictEqual({ test: true })
   })
-
 })

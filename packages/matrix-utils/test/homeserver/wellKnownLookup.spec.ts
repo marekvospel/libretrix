@@ -1,7 +1,6 @@
-import { wellKnownLookup } from "../../src"
+import { wellKnownLookup } from '../../src'
 
 describe('wellKnownLookup', () => {
-
   it.fails('should fail for having invalid protocol', async () => {
     await wellKnownLookup('ftp://vospel.cz')
   })
@@ -19,5 +18,4 @@ describe('wellKnownLookup', () => {
 
     expect(result).not.toBeFalsy()
   })
-
 })
