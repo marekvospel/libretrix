@@ -30,6 +30,9 @@
     </p>
 
     {#each events as event (event.getId())}
+      {#if event.getSender() !== client.getUserId() && (!event.event.content?.['device_id'] || !client.checkDeviceTrust(event.getSender() ?? '', event.event.content?.['device_id']).isCrossSigningVerified()) }
+        FUCKK
+      {/if}
       <div class="mb-1">
         {#if event.getType() === 'm.room.message'}
           {#if event.getContent().msgtype === 'm.text'}
