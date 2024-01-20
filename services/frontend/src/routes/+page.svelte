@@ -3,6 +3,7 @@
   import { t } from 'svelte-i18n'
   import { stateStore } from '../stores/matrixState.store'
   import AppView from '$lib/views/AppView.svelte'
+  import PopupManager from "$lib/popup/PopupManager.svelte"
 </script>
 
 {#if $stateStore === null || $stateStore === SyncState.Prepared}
@@ -12,6 +13,7 @@
   </div>
 {:else}
   <AppView />
+  <PopupManager />
 {/if}
 
 <style>

@@ -59,14 +59,32 @@
       {:then [version]}
         {#if version === null}
           <p>Your keys are <strong>not being backed up from this session</strong></p>
-          <form on:submit|preventDefault={setupBackup}>
+          <!-- <form on:submit|preventDefault={setupBackup}>
             <input bind:value={securityKey} placeholder="Security key" class="bg-gray-700 rounded px-2 py-1 border border-transparent">
             <button type="submit" class="bg-cyan-500 py-1 px-2 rounded">Setup backup</button>
-          </form>
+          </form> -->
         {:else}
           Version: {version}
         {/if}
       {/await}
+    </div>
+
+    <h3 class="text-xl font-semibold">Devices</h3>
+
+    <div class="flex flex-col gap-2">
+
+      {#await client.getDevices()}
+        Loading...
+      {:then devices} 
+        {#each devices.devices ?? [] as device (device['device_id'])}
+          <div>
+            <h4 class="font-bold">{ device['display_name'] }</h4>
+            <p>{device['device_id']}</p>
+            { client.checkDeviceTrust(client.getUserId() ?? '', device['device_id']).isVerified() }
+          </div>
+        {/each}
+      {/await}
+
     </div>
   </div>
 
