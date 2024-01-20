@@ -12,5 +12,5 @@ export default antfu({
   svelte: true,
   jsonc: true,
 
-  ignores: ['**/node_modules', '**/dist', '**/build', '**/.svelte-kit'],
+  ignores: ['**/node_modules', '**/dist', '**/build', '**/.svelte-kit', '!services/frontend/src/lib'],
 })

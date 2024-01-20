@@ -58,7 +58,7 @@
           user,
         },
         password,
-        initial_device_display_name: 'Libretrix',
+        initial_device_display_name: `${window.location.host} | Libretrix`,
       })
 
       const baseUrl = result?.well_known?.['m.homeserver']?.base_url ?? client.baseUrl
