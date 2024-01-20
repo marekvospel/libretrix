@@ -1,4 +1,4 @@
-import { ClientEvent, HttpApiEvent, type MatrixClient, CryptoEvent } from 'matrix-js-sdk'
+import { ClientEvent, CryptoEvent, HttpApiEvent, type MatrixClient } from 'matrix-js-sdk'
 import { stateStore } from '../../stores/matrixState.store'
 import { matrixLogout } from '..'
 
