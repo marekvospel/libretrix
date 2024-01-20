@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { MatrixEvent } from 'matrix-js-sdk'
+  import { EventStatus, type MatrixEvent } from 'matrix-js-sdk'
   import { createMatrixReadable } from '../../../matrix'
   import { client } from '../../../matrix'
   import { date } from 'svelte-i18n'
@@ -30,30 +30,34 @@
     </p>
 
     {#each events as event (event.getId())}
-      {#if event.getSender() !== client.getUserId() && (!event.event.content?.['device_id'] || !client.checkDeviceTrust(event.getSender() ?? '', event.event.content?.['device_id']).isCrossSigningVerified()) }
-        FUCKK
-      {/if}
-      <div class="mb-1">
-        {#if event.getType() === 'm.room.message'}
-          {#if event.getContent().msgtype === 'm.text'}
-            <!-- TODO: formatted body -->
-            {#if event.getContent().format === 'org.matrix.custom.html'}
-              <MessageFormatted body={event.getContent().formatted_body} />
-            {:else}
-              <MessageFormatted body={ event.getContent().body } />
-            {/if}
-          {:else if event.getContent().msgtype === 'm.image'}
-            <MessageImage file={event.getContent().file} alt={event.getContent().body} />
-          {:else}
-            { JSON.stringify(event.getContent()) }
-          {/if}
-        {:else if event.getType() === 'm.sticker'}
-          {#if event.getContent().url}
-            <img src={client.mxcUrlToHttp(event.getContent().url)} alt={event.getContent().body} />
-          {/if}
-        {:else}
-          <p class="font-400 text-subtext0">{ event.getType() } { JSON.stringify(event.getContent()) }</p>
+      <div class="flex flex-row gap-2 items-center">
+        {#if (event.getAssociatedStatus() === null || event.getAssociatedStatus() === EventStatus.SENT) && (!event.event.content?.['device_id'] || !client.checkDeviceTrust(event.getSender() ?? '', event.event.content?.['device_id']).isVerified()) }
+          <div class="shrink-0 text-xl text-red i-bx:shield" />
         {/if}
+        <div class="mb-1">
+          {#if event.getType() === 'm.room.message'}
+            <div class="{ event.getAssociatedStatus() && event.getAssociatedStatus() !== EventStatus.SENT ? 'text-subtext0' : '' }">
+              {#if event.getContent().msgtype === 'm.text'}
+                <!-- TODO: formatted body -->
+                {#if event.getContent().format === 'org.matrix.custom.html'}
+                  <MessageFormatted body={event.getContent().formatted_body} />
+                {:else}
+                  <MessageFormatted body={ event.getContent().body } />
+                {/if}
+              {:else if event.getContent().msgtype === 'm.image'}
+                <MessageImage file={event.getContent().file} alt={event.getContent().body} />
+              {:else}
+                { JSON.stringify(event.getContent()) }
+              {/if}
+            </div>
+          {:else if event.getType() === 'm.sticker'}
+            {#if event.getContent().url}
+              <img src={client.mxcUrlToHttp(event.getContent().url)} alt={event.getContent().body} />
+            {/if}
+          {:else}
+            <p class="font-400 text-subtext0">{ event.getType() } { JSON.stringify(event.getContent()) }</p>
+          {/if}
+        </div>
       </div>
     {/each}
   </div>

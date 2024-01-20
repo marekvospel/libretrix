@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { VerificationRequestEvent } from 'matrix-js-sdk/lib/crypto-api';
   import { client, storageKeys } from '../../../matrix'
 
   let securityKey = ''
@@ -31,6 +32,22 @@
     
     securityKey = ''
     backupSettingUp = false
+  }
+  
+  async function verifyDevice(device: string) {
+    const req = await client.requestVerification(client.getUserId() ?? '', [device])
+
+    req.on(VerificationRequestEvent.Change, async () => {
+      const verifier = await req.startVerification('m.sas.v1')
+      // @ts-expect-error: sad but necessary for missing import
+      verifier.on('show_sas', async (sas) => {
+        await sas.confirm()
+      })
+
+      await verifier.verify()
+    })
+
+      
   }
 </script>
 
@@ -77,10 +94,15 @@
         Loading...
       {:then devices} 
         {#each devices.devices ?? [] as device (device['device_id'])}
-          <div>
-            <h4 class="font-bold">{ device['display_name'] }</h4>
-            <p>{device['device_id']}</p>
-            { client.checkDeviceTrust(client.getUserId() ?? '', device['device_id']).isVerified() }
+          <div class="flex flex-row items-center gap-4 bg-surface1 rounded px-4 py-2">
+            <span class="text-2xl { client.checkDeviceTrust(client.getUserId() ?? '', device['device_id']).isVerified() ? 'text-green i-bxs:shield' : 'text-red i-bx:shield'}" />
+            <div>
+              <h4 class="font-bold">{ device['display_name'] }</h4>
+              <p>{device['device_id']}</p>
+            </div>
+            {#if !client.checkDeviceTrust(client.getUserId() ?? '', device['device_id']).isVerified()}
+              <button on:click={() => verifyDevice(device['device_id'])} class="bg-teal px-2 py-1 rounded-sm">Verify device</button>
+            {/if}
           </div>
         {/each}
       {/await}
