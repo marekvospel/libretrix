@@ -4,6 +4,9 @@ import { createPopup } from '$lib/popup'
 
 export async function startVerification(_client: MatrixClient, req: VerificationRequest) {
   const verifier = await req.startVerification('m.sas.v1')
+  if (!verifier)
+    return
+
   verifier.on(VerifierEvent.ShowSas, async (sas) => {
     createPopup({
       type: 'device-verification',

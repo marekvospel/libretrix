@@ -1,10 +1,11 @@
-import { readable } from "svelte/store"
+import { readable } from 'svelte/store'
 
 export type AppRoutes = 'room' | 'settings'
 
 export class AppState<Routes extends string = AppRoutes> {
   route: Routes
   selectedRoom?: string
+  selectedUser?: string
 
   constructor(route: Routes) {
     this.route = route
@@ -26,7 +27,12 @@ export const appState = (() => {
     },
     setRoom(room: string) {
       appState.selectedRoom = room
+      appState.selectedUser = undefined
       setter(appState)
-    }
+    },
+    setUser(user: string | undefined) {
+      appState.selectedUser = user
+      setter(appState)
+    },
   }
 })()
