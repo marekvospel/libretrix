@@ -1,12 +1,12 @@
 <script lang="ts">
   import { decryptAttachment } from 'matrix-encrypt-attachment'
-  import { client } from '../../../matrix';
+  import { client } from '$/matrix';
   import type { IEncryptedFile } from 'matrix-js-sdk';
   import { onMount } from 'svelte';
 
   export let alt: string
   export let file: IEncryptedFile
-  
+
   let imageSrc: Promise<string>
 
   onMount(() => {
@@ -26,7 +26,7 @@
 
 {#await imageSrc}
   Decrypting...
-{:then src} 
+{:then src}
   <img src={src} alt={alt} />
 {:catch}
   Decryption error

@@ -1,7 +1,7 @@
 <script lang='ts'>
   import { VerificationRequestEvent } from 'matrix-js-sdk/lib/crypto-api'
-  import { client } from '../../../matrix'
-  import { startVerification } from '../../../matrix/verification'
+  import { client } from '$/matrix'
+  import { startVerification } from '$/matrix/verification'
 
   async function verifyDevice(device: string) {
     const req = await client.requestVerification(client.getUserId() ?? '', [device])

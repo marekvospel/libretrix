@@ -1,9 +1,10 @@
 import { redirect } from '@sveltejs/kit'
 import { get } from 'svelte/store'
 
-import { authStore } from '../stores/auth.store'
-import { initClient } from '../matrix'
 import type { PageLoad } from './$types'
+
+import { authStore } from '$/stores/auth.store'
+import { initClient } from '$/matrix'
 import { browser } from '$app/environment'
 
 export const load: PageLoad = async () => {

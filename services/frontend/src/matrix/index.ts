@@ -1,7 +1,7 @@
 import { type EmittedEvents, IndexedDBCryptoStore, IndexedDBStore, type MatrixClient, createClient } from 'matrix-js-sdk'
 import { type Readable, type Stores, type StoresValues, get, readable } from 'svelte/store'
-import { authStore } from '../stores/auth.store'
-import { registerListeners } from './listeners'
+import { authStore } from '$/stores/auth.store'
+import { registerListeners } from '$/matrix/listeners'
 import { browser } from '$app/environment'
 
 // eslint-disable-next-line import/no-mutable-exports

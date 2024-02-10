@@ -1,5 +1,5 @@
 import { ClientEvent, MatrixEventEvent, RoomEvent } from 'matrix-js-sdk'
-import { createMatrixReadable } from '../matrix'
+import { createMatrixReadable } from '$/matrix'
 import { appState } from '$lib/app-state'
 
 export const roomsStore = createMatrixReadable((client) => {

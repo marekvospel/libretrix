@@ -1,10 +1,10 @@
 <script lang='ts'>
   import { EventStatus, type MatrixEvent } from 'matrix-js-sdk'
   import { date } from 'svelte-i18n'
-  import { client, createMatrixReadable } from '../../../matrix'
-  import MessageImage from './MessageImage.svelte'
-  import MessageFormatted from './MessageFormatted.svelte'
-  import { appState } from '$lib/app-state'
+  import { client, createMatrixReadable } from '$/matrix'
+  import MessageImage from '$/lib/components/message/MessageImage.svelte'
+  import MessageFormatted from '$/lib/components/message/MessageFormatted.svelte'
+  import { appState } from '$/lib/app-state'
 
   export let events: MatrixEvent[]
 
@@ -37,7 +37,6 @@
           {#if event.getType() === 'm.room.message'}
             <div class={event.getAssociatedStatus() && event.getAssociatedStatus() !== EventStatus.SENT ? 'text-subtext0' : ''}>
               {#if event.getContent().msgtype === 'm.text'}
-                <!-- TODO: formatted body -->
                 {#if event.getContent().format === 'org.matrix.custom.html'}
                   <MessageFormatted body={event.getContent().formatted_body} />
                 {:else}

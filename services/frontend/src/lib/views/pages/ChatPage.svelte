@@ -11,11 +11,12 @@
   import MessageEvent from '$lib/components/message/MessageEvent.svelte'
   import SveltePopper from '$lib/components/popper/SveltePopper.svelte'
   import EmojiPicker from '$lib/components/message/EmojiPicker.svelte'
+  import LibretrixInput from '$/lib/components/LibretrixInput.svelte'
 
   let message = ''
 
-  function keydownSend(event: KeyboardEvent) {
-    if (event.key === 'Enter' && !event.shiftKey) {
+  function keydownSend(event: CustomEvent<KeyboardEvent>) {
+    if (event.detail.key === 'Enter' && !event.detail.shiftKey) {
       event.preventDefault()
       send()
     }
@@ -71,16 +72,16 @@
 
 {#if $appState.selectedRoom}
   <div class='h-full w-full overflow-x-hidden break-words flex flex-col-reverse'>
-    <form class='w-full sticky bottom-0 flex px-4 py-4 bg-base z-10 isolate' on:submit|preventDefault={send}>
-      <div class='w-full flex flex-row gap-2 bg-surface0 border border-surface1 rounded-xl p-2'>
-        <textarea bind:value={message} on:keydown={keydownSend} placeholder='Message' class='w-full resize-none bg-transparent border-none h-[1.5em] outline-none' />
+    <form class='w-full sticky bottom-0 flex px-4 py-4 bg-primary-900 z-10 isolate' on:submit|preventDefault={send}>
+      <div class='w-full flex flex-row items-center gap-2 p-2'>
+        <LibretrixInput type='textarea' bind:value={message} on:keydown={keydownSend} placeholder='Message' class='w-full h-[2.25em]' />
         <SveltePopper let:open>
           <button type='button' class="aspect-square flex flex-row items-center filter-grayscale focus-visible:filter-grayscale-0 hover:filter-grayscale-0 transition-all duration-300 {open ? '!filter-grayscale-0' : ''}">
             <span class='inline-block i-twemoji:face-with-tears-of-joy text-xl' />
           </button>
           <EmojiPicker slot='tooltip' on:emoji={emoji => message += emoji.detail} />
         </SveltePopper>
-        <button type='submit' class='flex flex-row items-center hover:text-teal focus:text-teal transition-colors duration-300'>
+        <button type='submit' class='flex flex-row items-center hover:text-primary focus:text-primary transition-colors duration-300'>
           <span class='inline-block i-bx:send text-2xl' />
         </button>
       </div>

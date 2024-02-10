@@ -9,7 +9,7 @@
   import { rehypeResolveMxc } from '@vospel/rehype-resolve-mxc'
   import { rehypeTwemojify } from '@vospel/rehype-twemojify'
 
-  import { client } from '../../../matrix'
+  import { client } from '$/matrix'
 
   export let body: string = ''
 

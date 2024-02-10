@@ -1,7 +1,7 @@
 import { ClientEvent, CryptoEvent, HttpApiEvent, type MatrixClient } from 'matrix-js-sdk'
-import { stateStore } from '../../stores/matrixState.store'
-import { matrixLogout } from '..'
-import { startVerification } from '../verification'
+import { stateStore } from '$/stores/matrixState.store'
+import { matrixLogout } from '$/matrix'
+import { startVerification } from '$/matrix/verification'
 
 export function registerListeners(client: MatrixClient) {
   // Sync state with state store, which is used to show loading spinners

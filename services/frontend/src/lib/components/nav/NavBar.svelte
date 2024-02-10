@@ -1,7 +1,7 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte'
-  import { roomsStore } from '../../../stores/matrix.store'
-  import { matrixLogout } from '../../../matrix'
+  import { roomsStore } from '$/stores/matrix.store'
+  import { matrixLogout } from '$/matrix'
     import type { AppRoutes } from '$lib/app-state';
 
   interface RouteSwitchEvent {

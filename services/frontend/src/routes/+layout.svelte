@@ -7,6 +7,6 @@
   <meta name='og:description' content={$t('seo.description')} />
 </svelte:head>
 
-<div class='min-h-screen w-full h-full flex flex-col bg-base text-text'>
+<div class='min-h-[100dvh] w-full h-full flex flex-col bg-primary-900 text-text'>
   <slot />
 </div>

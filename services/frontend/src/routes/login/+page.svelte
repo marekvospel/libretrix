@@ -5,8 +5,11 @@
   import { get } from 'svelte/store'
   import { t } from 'svelte-i18n'
 
-  import { authStore } from '../../stores/auth.store'
+  import { authStore } from '$/stores/auth.store'
   import { goto } from '$app/navigation'
+  import LibretrixContainer from '$/lib/components/LibretrixContainer.svelte'
+  import LibretrixButton from '$/lib/components/LibretrixButton.svelte'
+  import LibretrixInput from '$/lib/components/LibretrixInput.svelte'
 
   let servername: string = 'matrix.org'
 
@@ -98,24 +101,43 @@
   <meta name='og:title' content={$t('auth.seo.title')} />
 </svelte:head>
 
-<form on:submit|preventDefault={login} class='flex flex-col gap-2 w-full max-w-100 mx-auto py-8'>
-  <h1 class='text-2xl font-bold mb-8'>{$t('auth.title')}</h1>
-  <input bind:value={servername} type='text' class="bg-gray-700 rounded px-2 py-1 border border-transparent {error === 1 ? '!border-red-600' : ''}" placeholder={$t('auth.homeserver')}>
-  {#if error === 1}
-    <span class='text-red-600 leading-2'>{$t('auth.error.invalidHomeserver')}</span>
-  {/if}
-  <br>
-  <input bind:value={username} type='text' class="bg-gray-700 rounded px-2 py-1 border border-transparent {error === 2 || error === 3 ? '!border-red-600' : ''}" placeholder={$t('auth.username')}>
-  {#if error === 2}
-    <span class='text-red-600 leading-2'>{$t('auth.error.invalidUsername')}</span>
-  {/if}
-  <input bind:value={password} type='password' class="bg-gray-700 rounded px-2 py-1 border border-transparent {error === 3 ? '!border-red-600' : ''}" placeholder={$t('auth.password')}>
-  {#if error === 3}
-    <span class='text-red-600 leading-2'>{$t('auth.error.invalidPassword')}</span>
-  {/if}
+<LibretrixContainer class='isolate'>
+  <form on:submit|preventDefault={login} class='flex flex-col gap-2 w-full max-w-100 mx-auto mt-[20dvh] p-8 border border-text-semilight border-opacity-40 rounded-xl relative bg-primary-900'>
+    <div class='hidden sm:block absolute top-0 right-[-30%] w-100 h-100 rounded-full blur-350 bg-[#7CC2D8] bg-opacity-75 translate-y-[-30%] -z-10' />
+    <div class='hidden sm:block absolute bottom-0 left-[-30%] w-100 h-100 rounded-full blur-350 bg-[#80C87E] bg-opacity-20 translate-y-[30%] -z-10' />
+    <h1 class='text-2xl font-bold mb-8 flex items-center'>
+      <img src='/favicon.svg' class='inline h-12 w-12 shrink-0' alt='Libretrix logo'>
+      {$t('auth.title')}
+    </h1>
+    <div class='flex flex-col gap-1'>
+      <label for='homeserver-input' class='text-sm text-text-semilight'>{$t('auth.homeserver')}</label>
+      <LibretrixInput id='homeserver-input' bind:value={servername} type='text' placeholder={$t('auth.homeserver')} error={error === 1} />
+      {#if error === 1}
+        <span class='text-red leading-2'>{$t('auth.error.invalidHomeserver')}</span>
+      {/if}
+    </div>
+    <br>
+    <div class='flex flex-col gap-1'>
+      <label for='username-input' class='text-sm text-text-semilight'>{$t('auth.username')}</label>
+      <LibretrixInput id='username-input' bind:value={username} type='text' placeholder={$t('auth.username')} error={error === 2} />
+      {#if error === 2}
+        <span class='text-red leading-2'>{$t('auth.error.invalidUsername')}</span>
+      {/if}
+    </div>
+    <div class='flex flex-col gap-1'>
+      <label for='password-input' class='text-sm text-text-semilight'>{$t('auth.password')}</label>
+      <LibretrixInput id='password-input' bind:value={password} type='password' placeholder={$t('auth.password')} error={error === 3} />
+      {#if error === 3}
+        <span class='text-red leading-2'>{$t('auth.error.invalidPassword')}</span>
+      {/if}
+    </div>
+    <div class='h-8' />
 
-  <button type='submit' class='bg-cyan-500 py-1 px-2 rounded'>{$t('auth.signIn')}</button>
-</form>
+    <LibretrixButton type='submit' color='primary'>
+      <span class='text-center w-full'>{$t('auth.signIn')}</span>
+    </LibretrixButton>
+  </form>
+</LibretrixContainer>
 
 <div class='mt-auto px-4 py-1 text-gray'>
   <p>Attributions:</p>
